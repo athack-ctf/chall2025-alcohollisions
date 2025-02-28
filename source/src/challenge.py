@@ -2,7 +2,10 @@ from flask import Flask
 from flask import request
 from flask import render_template 
 import hashlib
-  
+from PIL import Image
+import imghdr
+import os
+
 app = Flask(__name__)
 
 hashes = {
@@ -32,6 +35,24 @@ sha256hashes = (
     hashes["halloween"]["sha256"],
 )
 
+
+def is_valid_jpg(file_path):
+    """Check if a file is a valid JPG image."""
+    try:
+        # Check using Pillow
+        with Image.open(file_path) as img:
+            if img.format not in ["JPEG", "JPG"]:
+                return False
+        
+        # # Check MIME type
+        # if imghdr.what(file_path) != "jpeg":
+        #     return False
+        
+        return True
+    except Exception:
+        return False
+    
+
 @app.route("/") 
 def homepage(): 
     return render_template('homepage.html') 
@@ -42,20 +63,42 @@ def test():
    
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    file_contents = request.files['collision_image'].read()
-    if len(file_contents) == 0:
+
+    if 'collision_image' not in request.files:
         return render_template('tester.html', message="Make sure to upload a file first...")
 
-    md5hash = hashlib.md5(file_contents).hexdigest()
-    sha256hash = hashlib.sha256(file_contents).hexdigest()
+    file = request.files['collision_image']
 
-    if md5hash not in md5hashes and sha256hash not in sha256hashes:
-        return render_template('tester.html', message=f"Your label is unique. It will be added to the collection next year.")
-        
-    if md5hash in md5hashes and sha256hash in sha256hashes:
-        return render_template('tester.html', message=f"errr, Professor Winestein already has this wine in his collection ... try again!")
+    if file.filename == '':
+        return render_template('tester.html', message="Make sure to upload a file first...")
 
-    if sha256hash not in sha256hashes and md5hash in md5hashes:
-        return render_template('tester.html', message=r"Our label already exists in our system; yet Professor Winestein has never tasted this wine. Here is your flag: ATHACKCTF{y0uar3aSharpStud3nt}")
+    if not file.filename.lower().endswith(('.jpg', '.jpeg')):
+        return render_template('tester.html', message="Invalid file extension...")
+
+    temp_path = os.path.join("/tmp", file.filename)
+    file.save(temp_path)  # Save temporarily to check validity
+
+    if not is_valid_jpg(temp_path):
+        os.remove(temp_path)  # Clean up the invalid file
+        return render_template('tester.html', message="Invalid jpeg file")
+    
+
+    with open(temp_path, 'rb') as f:
+        file_contents = f.read()
+            
+
+        md5hash = hashlib.md5(file_contents).hexdigest()
+        sha256hash = hashlib.sha256(file_contents).hexdigest()
+
+        if md5hash not in md5hashes and sha256hash not in sha256hashes:
+            return render_template('tester.html', message=f"Your label is unique. It will be added to the collection next year.")
+            
+        if md5hash in md5hashes and sha256hash in sha256hashes:
+            return render_template('tester.html', message=f"errr, Professor Winestein already has this wine in his collection ... try again!")
+
+        if sha256hash not in sha256hashes and md5hash in md5hashes:
+            return render_template('tester.html', message=r"Our label already exists in our system; yet Professor Winestein has never tasted this wine. Here is your flag: ATHACKCTF{y0uar3aSharpStud3nt}")
 
 
+if __name__ == "__main__":
+    app.run(debug=False)
