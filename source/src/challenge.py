@@ -32,27 +32,30 @@ sha256hashes = (
     hashes["halloween"]["sha256"],
 )
 
+@app.route("/") 
+def homepage(): 
+    return render_template('homepage.html') 
+
+@app.route('/tester')
+def test():
+    return render_template('tester.html')
+   
 @app.route('/upload', methods=['POST'])
 def upload_file():
     file_contents = request.files['collision_image'].read()
     if len(file_contents) == 0:
-        return render_template('home.html', message="Make sure to upload a file first...")
+        return render_template('tester.html', message="Make sure to upload a file first...")
 
     md5hash = hashlib.md5(file_contents).hexdigest()
     sha256hash = hashlib.sha256(file_contents).hexdigest()
 
-    if md5hash not in md5hashes:
-        return render_template('home.html', message=f"The MD5 hash of this image is not the same as that of any of the wine labels")
+    if md5hash not in md5hashes and sha256hash not in sha256hashes:
+        return render_template('tester.html', message=f"Your label is unique. It will be added to the collection next year.")
         
-    if sha256hash in sha256hashes:
-        return render_template('home.html', message=f"The file you upload must have a different sha256 hash, try again!")
+    if md5hash in md5hashes and sha256hash in sha256hashes:
+        return render_template('tester.html', message=f"errr, Professor Winestein already has this wine in his collection ... try again!")
 
-    return render_template('home.html', message=r"ATHACKCTF{y0uar3aSharpStud3nt}")
+    if sha256hash not in sha256hashes and md5hash in md5hashes:
+        return render_template('tester.html', message=r"Our label already exists in our system; yet Professor Winestein has never tasted this wine. Here is your flag: ATHACKCTF{y0uar3aSharpStud3nt}")
 
 
-@app.route("/") 
-def hello(): 
-    message = "Hello, Hacker"
-    return render_template('home.html',  
-                           message=message) 
-   
