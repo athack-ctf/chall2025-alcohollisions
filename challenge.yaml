@@ -13,7 +13,7 @@ description: |
 
     To convince him, you decide to demonstrate how two different labels can have the same MD5 hash but different SHA-256 hashes. Use this information to teach him why relying on MD5 alone might not be the best choice for such a prized collection.
     
-value: 0
+value: 100
 
 type: standard
 
