@@ -1,12 +1,5 @@
-The description of your challenge as seen by participants in CTFd. Try to make it feel within the theme
-of the event...
-
----
-
 Professor Gilbert Winestein is a renowned cybersecurity expert... and an even bigger wine enthusiast! His prized wine collection features exclusive bottles from the renowned vineyard Château AtHack. Every time he adds a new bottle, he struggles to check if it’s already in his collection because comparing all the labels takes forever. To speed up the process, Winestein's friends suggested a clever hack: record the MD5 hash of each label. Since MD5 hashes are short, it would make his collection faster to manage.
 
 But you, a sharp and curious student of his, notice a potential flaw. What if two labels from different bottles accidentally produce the same MD5 hash? Winestein might think they’re duplicates and toss out a unique wine!
 
 To convince him, you decide to demonstrate how two different labels can have the same MD5 hash but different SHA-256 hashes. Use this information to teach him why relying on MD5 alone might not be the best choice for such a prized collection.
-
-`[HalloweenLabel.jpg]` `[ChristmasLabel.jpg]` `[EasterLabel.jpg]`
