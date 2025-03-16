@@ -1,7 +1,7 @@
+version: '3.8'
 services:
   alcohollisions:
-    build: .
     image: athack-ctf/chall2025-alcohollisions:latest
+    build: .
     ports:
     - 52002:5000
-version: '3.8'
