@@ -1,67 +1,80 @@
-# Professor Winestein and his wine collections
+# @HACK 2025: Alcohollisions
 
-> This challenge is a hash collision challenge and is about finding a file with the same MD5 Hash as a given file. It requires participants to learn about hash collision attacks because it is not doable without them.
+> Authored by [Chit Chit](https://github.com/littleSquid00).
 
-## Type
+- **Category**: `Crypto`
+- **Value**: `100 points`
+- **Tags**: `http`
 
-- [x] **ON**line
+> Professor Gilbert Winestein is a renowned cybersecurity expert... and an even bigger wine enthusiast!
+> His prized wine collection features exclusive bottles from the renowned vineyard Château AtHack.
+> Every time he adds a new bottle, he struggles to check if it's already in his collection because comparing all the labels takes forever.
+> To speed up the process, Winestein's friends suggested a clever hack: record the MD5 hash of each label.
+> Since MD5 hashes are short, it would make his collection faster to manage.
+> 
+> But you, a sharp and curious student of his, notice a potential flaw.
+> What if two labels from different bottles accidentally produce the same MD5 hash? Winestein might think they're duplicates and toss out a unique wine!
+> 
+> To convince him, you decide to demonstrate how two different labels can have the same MD5 hash but different SHA-256 hashes. Use this information to teach him why relying on MD5 alone might not be the best choice for such a prized collection.
+> 
 
-## Designer(s)
+## Files
+- **[Download: christmaslabel.jpg](https://github.com/athack-ctf/chall2025-alcohollisions/raw/refs/heads/main/offline-artifacts/christmaslabel.jpg)**
+- **[Download: easterlabel.jpg](https://github.com/athack-ctf/chall2025-alcohollisions/raw/refs/heads/main/offline-artifacts/easterlabel.jpg)**
+- **[Download: halloweenlabel.jpg](https://github.com/athack-ctf/chall2025-alcohollisions/raw/refs/heads/main/offline-artifacts/halloweenlabel.jpg)**
 
-- Little Squid
+## Access a dockerized instance
 
-## Description
+Run challenge container using docker compose
+```
+docker compose up -d
+```
+Open below URL on your browser
+```
+http://localhost:52002/
+```
+<details>
+<summary>
+How to stop/restart challenge?
+</summary>
 
-Participants will be given three images. Those images are of wine labels. The participants will be asked to provide a file with the same MD5 hash as one of the three given files. The participants will have to recognize which of the files was generated as a result of a hash collision attack, and how that collision works, so as to exploit it.
+To stop the challenge run
+```
+docker compose stop
+```
+To restart the challenge run
+```
+docker compose restart
+```
 
-Educational Goals: (1) Participants will gain an understanding of hash collisions, specifically MD5 vulnerabilities, and how attackers exploit these weaknesses. (2) Participants will improve their ability to analyze cryptographic artifacts (e.g., files with similar hashes) and understand the implications of weak hash functions in real-world applications.
+</details>
 
-Skills Test:(1) Participants will show understanding of how a specific hash collision attack works by identifying the target file and generating a valid collision file with the same MD5 hash. (2) Participants will use analytical and critical thinking skills to deduce which file corresponds to a hash collision and what hash collision attack was used to generate that file. (3) Participants will showcase proficiency with tools for computing MD5 hashes.
-**IMPORTANT:** This description will **NOT** be shared with participants.
 
-## Category(ies)
+## Reveal Flag
 
-- `stegano`
-- `crypto`
+Did you try solving this challenge?
+<details>
+<summary>
+Yes
+</summary>
+
+Did you **REALLY** try solving this challenge?
+
+<details>
+<summary>
+Yes, I promise!
+</summary>
+
+Flag: `ATHACKCTF{y0uar3aSharpStud3nt}`
+
+</details>
+</details>
+
 
 ---
 
-# Project Structure
+## About @HACK
+[@HACK](https://athackctf.com/) is an annual CTF (Capture The Flag) competition hosted by [HEXPLOIT ALLIANCE](https://hexploit-alliance.com/) and [TECHNATION](https://technationcanada.ca/) at Concordia University in Montreal, Canada.
 
-## 1. HACKME.md
-
-- **[HACKME.md](HACKME.md)**: A teaser or description of the challenge to be shared with participants (in CTFd).
-
-## 2. Source Code
-
-- **[source/README.md](source/README.md)**: Comprehensive instructions on how to have a running instance of your
-  challenge from the source.
-  If your project includes multiple subprojects, please consult us (Anis and Hugo).
-- **[source/\*](source/)**: Your source code.
-
-## 3. Offline Artifacts [OPTIONAL]
-
-> **NOTE:** This directory is optional for online challenges. However, if offline artifacts need to be provided as well,
-> they should be placed here.
-
-- **[offline-artifacts/\*](offline-artifacts/)**: All files intended to be downloaded by participants
-  (e.g., a flagless version of the running binary executable of a pwn challenge).
-  For large files (exceeding 100 MB), please consult us (Anis and Hugo).
-
-## 4. Solution
-
-- **[solution/README.md](solution/README.md)**: A detailed writeup of the working solution.
-- **[solution/FLAGS.md](solution/FLAGS.md)**: A single markdown file listing all (up-to-date) flags.
-- **[solution/\*](solution/)**: Any additional files or code necessary for constructing a reproducible solution for the
-  challenge (e.g., `PoC.py`, `requirement.txt`, etc.).
-
-## 5. Dockerization
-
-> **NOTE:** For deployment on @Hack's infrastructure, online challenges must be containerized.
-> However, this requirement does not apply during the early stages of challenge development, so do not hesitate to start
-> building your online challenge if you are unfamiliar with containerization.
-> We (Anis and Hugo) will take care of it.
-
-- **[source/Dockerfile](source/Dockerfile)**: Needed for building a containerized image of the online challenge.
-- **[source/docker-compose.yml](source/docker-compose.yml)**: Needed for a configuration-free run of the online
-  challenge
+---
+[Check more challenges from @HACK 2025](https://github.com/athack-ctf/AtHackCTF-2025-Challenges).
